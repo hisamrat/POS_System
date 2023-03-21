@@ -199,12 +199,12 @@
                             Items.Quantity = this.cells[1].innerHTML;
                             Items.Price = this.cells[2].innerHTML;
                             Items.Amount = this.cells[3].innerHTML;
-                            Items.OrderDate = $("#Date").val();                         
-                            Items.OrderTime =$("#Time").val();
+                            Items.BillDate = $("#Date").val();
+                            Items.BillTime =$("#Time").val();
                   
                     ItemsList.push(Items);
                 });
-                //Send list of items to controller
+               
                 $.ajax({
                     url: '/home/SaveOrder',
                     type: "POST",
@@ -267,9 +267,9 @@
                 }
 
 
-                if (Errors.length > 0) {//if errors detected then notify user and cancel transaction
+                if (Errors.length > 0) {
                     ShowMsn(Errors);
-                    return false; //exit function
+                    return false; 
                 }
 
                

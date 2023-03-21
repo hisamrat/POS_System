@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace POS_System.Models
 {
-  public  class Order
+  public  class Bill
     {
-        public string OrderId { get; set; }
+        public string BillId { get; set; }
         [Required]
         public string ItemName { get; set; }
         [Required]
@@ -19,8 +19,8 @@ namespace POS_System.Models
         [Required]
         public decimal Amount { get; set; }
         [Required]
-        public DateTime OrderDate { get; set; }
+        public DateTime BillDate { get; set; }
         [Required]
-        public string OrderTime { get; set; }
+        public string BillTime { get; set; }
     }
 }

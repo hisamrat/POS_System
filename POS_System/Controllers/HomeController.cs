@@ -61,25 +61,25 @@ namespace POS_System.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveOrder(List<Order> orders)
+        public JsonResult SaveOrder(List<Bill> bills)
         {
             try
             {
                
-                var OrderId = Guid.NewGuid();
+                var BillId = Guid.NewGuid();
                 int i = 0;
                 _databaseConnections.connection();
                 SqlCommand cmd = new SqlCommand("AddNewOrderBill", _databaseConnections.con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                foreach (var odr in orders)
+                foreach (var bil in bills)
                 {
-                    cmd.Parameters.AddWithValue("@OrderId", OrderId);
-                    cmd.Parameters.AddWithValue("@ItemName", odr.ItemName);
-                    cmd.Parameters.AddWithValue("@Price", odr.Price);
-                    cmd.Parameters.AddWithValue("@Quantity", odr.Quantity);
-                    cmd.Parameters.AddWithValue("@Amount", odr.Amount);
-                    cmd.Parameters.AddWithValue("@OrderDate", odr.OrderDate);
-                    cmd.Parameters.AddWithValue("@OrderTime", odr.OrderTime);
+                    cmd.Parameters.AddWithValue("@BillId", BillId);
+                    cmd.Parameters.AddWithValue("@ItemName", bil.ItemName);
+                    cmd.Parameters.AddWithValue("@Price", bil.Price);
+                    cmd.Parameters.AddWithValue("@Quantity", bil.Quantity);
+                    cmd.Parameters.AddWithValue("@Amount", bil.Amount);
+                    cmd.Parameters.AddWithValue("@BillDate", bil.BillDate);
+                    cmd.Parameters.AddWithValue("@BillTime", bil.BillTime);
                     if (cmd.Connection.State != ConnectionState.Open)
                     {
                         cmd.Connection.Open();
