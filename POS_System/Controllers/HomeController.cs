@@ -24,70 +24,86 @@ namespace POS_System.Controllers
         [HttpGet]
         public ActionResult GetItems()
         {
-            _databaseConnections.connection();
-            List<Items> itemslist = new List<Items>();
-            SqlCommand cmd = new SqlCommand("GetItemDetails", _databaseConnections.con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter sd = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-
-            _databaseConnections.con.Open();
-            sd.Fill(dt);
-            _databaseConnections.con.Close();
-
-            foreach (DataRow dr in dt.Rows)
+            try
             {
-                itemslist.Add(
-                    new Items
-                    {
-                        Id = Convert.ToInt32(dr["Id"]),
-                        ItemName = Convert.ToString(dr["ItemName"]),
-                        Price = Convert.ToInt32(dr["Price"]),
+                _databaseConnections.connection();
+                List<Items> itemslist = new List<Items>();
+                SqlCommand cmd = new SqlCommand("GetItemDetails", _databaseConnections.con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter sd = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
 
-                    });
+                _databaseConnections.con.Open();
+                sd.Fill(dt);
+                _databaseConnections.con.Close();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    itemslist.Add(
+                        new Items
+                        {
+                            Id = Convert.ToInt32(dr["Id"]),
+                            ItemName = Convert.ToString(dr["ItemName"]),
+                            Price = Convert.ToInt32(dr["Price"]),
+
+                        });
+                }
+
+                return Json(itemslist.ToList(), JsonRequestBehavior.AllowGet);
             }
-          
-            return Json(itemslist.ToList(), JsonRequestBehavior.AllowGet);
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         [HttpPost]
         public JsonResult SaveOrder(List<Order> orders)
         {
-            var OrderId = Guid.NewGuid();
-            int i = 0;
-            _databaseConnections.connection();
-            SqlCommand cmd = new SqlCommand("AddNewOrderBill", _databaseConnections.con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            foreach(var odr in orders)
+            try
             {
-                cmd.Parameters.AddWithValue("@OrderId", OrderId);
-                cmd.Parameters.AddWithValue("@ItemName", odr.ItemName);
-                cmd.Parameters.AddWithValue("@Price", odr.Price);
-                cmd.Parameters.AddWithValue("@Quantity", odr.Quantity);
-                cmd.Parameters.AddWithValue("@Amount", odr.Amount);
-                cmd.Parameters.AddWithValue("@OrderDate", odr.OrderDate);
-                cmd.Parameters.AddWithValue("@OrderTime", odr.OrderTime);
-                if (cmd.Connection.State != ConnectionState.Open)
+                var OrderId = Guid.NewGuid();
+                int i = 0;
+                _databaseConnections.connection();
+                SqlCommand cmd = new SqlCommand("AddNewOrderBill", _databaseConnections.con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                foreach (var odr in orders)
                 {
-                    cmd.Connection.Open();
-                }
-                   
-                i = cmd.ExecuteNonQuery();
-                cmd.Parameters.Clear();
-                
-            };
-           
-            if (i >= 1)
-            {
-                cmd.Connection.Close();
-                bool Result = true;
-                return Json(Result);
-            }
+                    cmd.Parameters.AddWithValue("@OrderId", OrderId);
+                    cmd.Parameters.AddWithValue("@ItemName", odr.ItemName);
+                    cmd.Parameters.AddWithValue("@Price", odr.Price);
+                    cmd.Parameters.AddWithValue("@Quantity", odr.Quantity);
+                    cmd.Parameters.AddWithValue("@Amount", odr.Amount);
+                    cmd.Parameters.AddWithValue("@OrderDate", odr.OrderDate);
+                    cmd.Parameters.AddWithValue("@OrderTime", odr.OrderTime);
+                    if (cmd.Connection.State != ConnectionState.Open)
+                    {
+                        cmd.Connection.Open();
+                    }
 
-            else
+                    i = cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
+
+                };
+
+                if (i >= 1)
+                {
+                    cmd.Connection.Close();
+                    bool Result = true;
+                    return Json(Result);
+                }
+
+                else
+                {
+                    bool Result = false;
+                    return Json(Result);
+                }
+            }
+            catch (Exception ex)
             {
-                bool Result = false;
-                return Json(Result);
+
+                throw;
             }
 
 
