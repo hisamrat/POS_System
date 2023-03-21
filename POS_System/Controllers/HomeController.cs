@@ -21,7 +21,7 @@ namespace POS_System.Controllers
             ViewBag.Time = DateTime.Now.ToString("HH:mm:ss tt");
             return View();
         }
-
+        [HttpGet]
         public ActionResult GetItems()
         {
             _databaseConnections.connection();
@@ -50,10 +50,48 @@ namespace POS_System.Controllers
             return Json(itemslist.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-
-        public ActionResult SaveBils(Items items)
+        [HttpPost]
+        public JsonResult SaveOrder(List<Order> orders)
         {
-            return View();
+            var OrderId = Guid.NewGuid();
+            int i = 0;
+            _databaseConnections.connection();
+            SqlCommand cmd = new SqlCommand("AddNewOrderBill", _databaseConnections.con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            foreach(var odr in orders)
+            {
+                cmd.Parameters.AddWithValue("@OrderId", OrderId);
+                cmd.Parameters.AddWithValue("@ItemName", odr.ItemName);
+                cmd.Parameters.AddWithValue("@Price", odr.Price);
+                cmd.Parameters.AddWithValue("@Quantity", odr.Quantity);
+                cmd.Parameters.AddWithValue("@Amount", odr.Amount);
+                cmd.Parameters.AddWithValue("@OrderDate", odr.OrderDate);
+                cmd.Parameters.AddWithValue("@OrderTime", odr.OrderTime);
+                if (cmd.Connection.State != ConnectionState.Open)
+                {
+                    cmd.Connection.Open();
+                }
+                   
+                i = cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
+                
+            };
+           
+            if (i >= 1)
+            {
+                cmd.Connection.Close();
+                bool Result = true;
+                return Json(Result);
+            }
+
+            else
+            {
+                bool Result = false;
+                return Json(Result);
+            }
+
+
+
         }
 
        
