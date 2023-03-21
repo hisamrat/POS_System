@@ -9,6 +9,6 @@ namespace POS_System.Models
     {
         public int Id { get; set; }
         public string ItemName { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

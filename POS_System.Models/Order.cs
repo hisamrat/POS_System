@@ -13,11 +13,11 @@ namespace POS_System.Models
         [Required]
         public string ItemName { get; set; }
         [Required]
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         [Required]
         public int Quantity { get; set; }
         [Required]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         [Required]
         public DateTime OrderDate { get; set; }
         [Required]

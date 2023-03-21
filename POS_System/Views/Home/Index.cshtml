@@ -160,7 +160,7 @@
                             success: function (data) {
                                 var s = '<option value="">Select a Item</option>';
                                 for (var i = 0; i < data.length; i++) {
-                                    s += '<option value="' + data[i].Price + ' ' + data[i].ItemName + '">' + data[i].ItemName + '</option>';
+                                    s += '<option value="' + data[i].Price + '-' + data[i].ItemName + '">' + data[i].ItemName + '</option>';
                                 }
                                 $("#itemsDropdown").html(s);
                             }
@@ -168,7 +168,7 @@
                     });
 
                     function getValue() {
-                        const itemvalue = $("#itemsDropdown").val().split(" ")
+                        const itemvalue = $("#itemsDropdown").val().split("-")
                         var myVal = itemvalue[0];
                         $("#show").val(myVal);
                         $("#Quantity").val(1)
@@ -243,7 +243,7 @@
                 debugger
 
                 var Items = {};
-                const itemname = $("#itemsDropdown").val().split(" ")
+                const itemname = $("#itemsDropdown").val().split("-")
                 Items.Title = itemname[1];
                 Items.Quantity = $('#Quantity').val();
                 Items.Price = $('#show').val();
