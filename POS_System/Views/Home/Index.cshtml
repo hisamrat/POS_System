@@ -101,11 +101,13 @@
                                                 <label for="email">Sub Total</label>
                                                 <input value="" id="SubTotal" disabled type="number" class="form-control" style="margin:10px"
                                                        placeholder="Sub Total">
-                                                <label for="pwd">Discount</label>
+
+                                                <label for="pwd">Discount %</label>
+                                               
                                                 <input value="" id="Discount" type="number" onchange="Calculation()" class="form-control" style="margin:10px"
                                                        placeholder="Discount %">
 
-                                                <label for="pwd">VAT</label>
+                                                <label for="pwd">VAT %</label>
                                                 <input value="12" id="VAT" type="number" onchange="Calculation()" class="form-control" style="margin:10px"
                                                        placeholder="VAT %">
                                                 <label for="pwd">Grand Total</label>
@@ -140,6 +142,7 @@
         </div>
     </div>
     @section Scripts {
+
         <script src="~/Scripts/jquery-1.10.2.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <div>
@@ -214,9 +217,21 @@
                             $('#table-body').empty();
                             Calculation();
                             $("#Discount").val('');
-                            ShowMsn("Order bill have been saved successfully.");
+                            Swal.fire({                               
+                                icon: "success",                               
+                                text: "Bill have been saved successfully!",
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                           
                         } else {
-                            ShowMsn("Ooops, an error has ocurrer while processing.");
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Do you want to continue',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
                         }
                     }
                 });
@@ -257,11 +272,14 @@
                     return false; //exit function
                 }
 
+               
 
                 $('#table-information > tbody  > tr').each(function () {
+                    var myCol = $(this).index();
                     var Title = $(this).find('.TitleCol').text();
                     if (Items.Title.toLowerCase() == Title.toLowerCase()) {
-                        ExistTitle = true;
+                        $(this).closest('tr').remove();
+                        ExistTitle = false;
                         return false;
                     }
                 });
