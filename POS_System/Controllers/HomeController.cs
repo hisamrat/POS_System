@@ -16,7 +16,8 @@ namespace POS_System.Controllers
         private readonly DatabaseConnections _databaseConnections=new DatabaseConnections();
         public ActionResult Index()
         {
-           
+            
+
             ViewBag.Date = DateTime.Now;
             ViewBag.Time = DateTime.Now.ToString("HH:mm:ss tt");
             return View();
@@ -26,6 +27,7 @@ namespace POS_System.Controllers
         {
             try
             {
+               
                 _databaseConnections.connection();
                 List<Items> itemslist = new List<Items>();
                 SqlCommand cmd = new SqlCommand("GetItemDetails", _databaseConnections.con);
@@ -63,6 +65,7 @@ namespace POS_System.Controllers
         {
             try
             {
+               
                 var OrderId = Guid.NewGuid();
                 int i = 0;
                 _databaseConnections.connection();
