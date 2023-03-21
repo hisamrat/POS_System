@@ -16,6 +16,14 @@ namespace POS_System.Controllers
         private readonly DatabaseConnections _databaseConnections=new DatabaseConnections();
         public ActionResult Index()
         {
+           
+            ViewBag.Date = DateTime.Now;
+            ViewBag.Time = DateTime.Now.ToString("HH:mm:ss tt");
+            return View();
+        }
+
+        public ActionResult GetItems()
+        {
             _databaseConnections.connection();
             List<Items> itemslist = new List<Items>();
             SqlCommand cmd = new SqlCommand("GetItemDetails", _databaseConnections.con);
@@ -35,9 +43,16 @@ namespace POS_System.Controllers
                         Id = Convert.ToInt32(dr["Id"]),
                         ItemName = Convert.ToString(dr["ItemName"]),
                         Price = Convert.ToInt32(dr["Price"]),
-                        
+
                     });
             }
+          
+            return Json(itemslist.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult SaveBils(Items items)
+        {
             return View();
         }
 

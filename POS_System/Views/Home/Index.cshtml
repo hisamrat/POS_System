@@ -11,150 +11,274 @@
                 <div class="row mb-4">
                     <label for="staticEmail" class="col-sm-1 col-form-label">Date</label>
                     <div class="col-sm-11">
-                        <input type="password" class="form-control" id="inputPassword">
+                        <input type="text" disabled class="form-control" value=@ViewBag.Date>
                     </div>
-                </div> 
+                </div>
                 <div class="row mb-4">
                     <label for="staticEmail" class="col-sm-1 col-form-label">Time</label>
                     <div class="col-sm-11">
-                        <input type="password" class="form-control" id="inputPassword">
+                        <input type="time" disabled class="form-control" value=@ViewBag.Time>
                     </div>
                 </div>
             </div>
-                    
+
         </div>
-    </div>                        
-                                    <div class="container-fluid " style="margin-bottom:10px">
-                                        <div class="container-fluid ">
-                                            <div id="ui-view">
-                                                <div>
-                                                    <div class="card">
+    </div>
+    <div class="container-fluid " style="margin-bottom:10px">
+        <div class="container-fluid ">
+            <div id="ui-view">
+                <div>
+                    <div class="card">
 
-                                                        <div class="card-body">
-                                                            <div class="container" style="margin-top:10px">
-                                                                <div class="d-flex justify-content-center" >
-                                                                    <form class="form-inline" action="/action_page.php">
-                                                                        <label for="email">Item</label>
-                                                                        <div class="form-group">
-                                                                            <select id="cband" class="form-control">
-                                                                                <option value="C15+">C15+</option>
-                                                                                <option value="C12-14">C12-14</option>
-                                                                                <option value="Other">Other</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <label for="pwd">Quantity</label>
-                                                                        <input type="password" class="form-control"
-                                                                               id="pwd" placeholder="Enter password"
-                                                                               name="pswd">
-                                                                        <label for="pwd">Price/Unit</label>
-                                                                        <input type="password" class="form-control"
-                                                                               id="pwd" placeholder="Enter password"
-                                                                               name="pswd">
-                                                                        <label for="pwd">Amount</label>
-                                                                        <input type="password" class="form-control"
-                                                                               id="pwd" placeholder="Enter password"
-                                                                               name="pswd">
+                        <div class="card-body">
+                            <div class="container" style="margin-top:10px">
+                                <div class="d-flex justify-content-center">
+                                    <form class="form-inline" action="/action_page.php">
+                                        <label for="email">Item </label>
+                                        <div class="form-group" style="margin:10px">
 
-                                                                    </form>
+                                            <select class="form-control" onchange="getValue()" id="itemsDropdown" name="departmentsDropdown"></select>
 
-                                                                </div>
-                                                                <div class="d-flex justify-content-end" style="margin-top:10px">
-                                                                    <button type="submit" class="btn btn-primary m-1">Add To Bill</button>
-                                                                    <button type="submit" class="btn btn-primary m-1">Reset</button>
-                                                                </div>
-
-
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="container-fluid mb-100">
-                                        <div class="container-fluid mb-100">
-                                            <div id="ui-view">
-                                                <div>
-                                                    <div class="card">
+                                        <label for="pwd">Quantity</label>
+                                        <input type="number" class="form-control" style="margin:10px"
+                                               onchange="getQuantity()" id="Quantity" placeholder="Quantity">
+                                        <label for="pwd">Price/Unit</label>
+                                        <input type="text" value="" id="show" class="form-control" style="margin:10px"
+                                               placeholder="Price/Unit">
+                                        <label for="pwd">Amount</label>
+                                        <input type="text" class="form-control" style="margin:10px"
+                                               placeholder="Amount" value="" id="Amount">
 
-                                                        <div class="card-body">                                                         
+                                    </form>
 
-                                                            <div class="table-responsive-sm">
-                                                                <table class="table table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                           
-                                                                            <th>Item</th>
-                                                                            <th>Quantity</th>
-                                                                            <th class="center">Price/Unit</th>
-                                                                            <th class="right">Amount</th>
-                                                                           
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                          
-                                                                            <td class="left">Laptops</td>
-                                                                            <td class="left">Macbook Air 8GB RAM, 256GB SSD</td>
-                                                                            <td class="center">5</td>
-                                                                            <td class="right">$900</td>
-                                                                           
-                                                                        </tr>
-                                                                        <tr>
-                                                                           
-                                                                            <td class="left">Samsung SSD</td>
-                                                                            <td class="left">Samsung SSD(256 GB)</td>
-                                                                            <td class="center">20</td>
-                                                                            <td class="right">$50</td>
-                                                                           
-                                                                        </tr>
-                                                                        <tr>
-                                                                           
-                                                                            <td class="left">PEN DRIVES</td>
-                                                                            <td class="left">Samsung Pendrives(32GB)</td>
-                                                                            <td class="center">100</td>
-                                                                            <td class="right">$10</td>
-                                                                           
-                                                                        </tr>
+                                </div>
+                                <div class="d-flex justify-content-end" style="margin-top:10px">
+                                    <button type="submit" id="AddTempItemsBtn" class="btn  m-1" style="background-color: #17A589;color:white">Add To Bill</button>
+                                    <button onclick="Reset()" class="btn  m-1" style="background-color: #17A589; color: white">Reset</button>
+                                </div>
 
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-4 col-sm-5">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</div>
-                                                                <div class="col-lg-4 col-sm-5 ml-auto">
-                                                                    <table class="table table-clear">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td class="left"><strong>Subtotal</strong></td>
-                                                                                <td class="right">$8500</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="left"><strong>Discount (20%)</strong></td>
-                                                                                <td class="right">$160</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="left"><strong>VAT (10%)</strong></td>
-                                                                                <td class="right">$90</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="left"><strong>Total</strong></td>
-                                                                                <td class="right"><strong>$9000</strong></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
 
-                                                                    <div class="pull-right">
-                                                                        <a class="btn btn-sm btn-success" href="#" data-abc="true"><i class="fa fa-paper-plane mr-1"></i> Proceed to payment</a>
 
-                                                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mb-100">
+        <div class="container-fluid mb-100">
+            <div id="ui-view">
+                <div>
+                    <div class="card">
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive-sm">
+                                <table class="table table-bordered table-striped" id="table-information">
+                                    <thead>
+                                        <tr class=" text-black font-weight-bold text-center">
+                                            <td>Item</td>
+                                            <td>Quantity</td>
+                                            <td>Price/Unit</td>
+                                            <td>Amount</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body" class="text-center"></tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="card-body">
+                                    <div class="container" style="margin-top:10px">
+                                        <div class="d-flex justify-content-center">
+                                            <form class="form-inline" action="/action_page.php">
+                                                <label for="email">Sub Total</label>
+                                                <input value="" id="SubTotal" disabled type="number" class="form-control" style="margin:10px"
+                                                       placeholder="Sub Total">
+                                                <label for="pwd">Discount</label>
+                                                <input value="" id="Discount" type="number" onchange="Calculation()" class="form-control" style="margin:10px"
+                                                       placeholder="Discount %">
+                                                <label for="pwd">VAT</label>
+                                                <input value="" id="VAT" type="text" onchange="Calculation()"  class="form-control" style="margin:10px"
+                                                       placeholder="VAT %">
+                                                <label for="pwd">Grand Total</label>
+                                                <input value="" id="GrandTotal" type="text" disabled class="form-control" style="margin:10px"
+                                                        placeholder="Grand Total">
+
+                                            </form>
+
                                         </div>
+
+
+
+
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="container-fluid ">
+
+
+
+            <button  id="SubmitMoviesBtn" class="btn btn-primary">Amount Paid & Add New Bill</button>
+
+
+
+        </div>
+    </div>
+    @section Scripts {
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    //set onclick events for buttons
+                    $('#AddTempItemsBtn').click(function () { AddTempItems(); });
+                    $('#SubmitMoviesBtn').click(function () { PostMovies(); });
+                });
+                $(document).ready(function () {
+
+                    //set onclick events for buttons
+
+                  
+                    $.ajax({
+                        type: "GET",
+                        url: "/Home/GetItems",
+                        data: "{}",
+                        success: function (data) {
+                            var s = '<option value="">Select a Item</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                s += '<option value="' + data[i].Price + ' ' + data[i].ItemName + '">' + data[i].ItemName + '</option>';
+                            }
+                            $("#itemsDropdown").html(s);
+                        }
+                    });
+                });
+
+                function getValue() {
+                    const itemvalue=$("#itemsDropdown").val().split(" ")
+                    var myVal = itemvalue[0];
+                    $("#show").val(myVal);
+                    $("#Quantity").val(1)
+                    var myQuantity = $("#Quantity").val() * $("#show").val();
+                    $("#Amount").val(myQuantity);
+                }
+                function getQuantity() {
+                    var myQuantity = $("#Quantity").val() * $("#show").val();
+                    $("#Amount").val(myQuantity);
+                }
+
+                function Reset() {
+                    $("#itemsDropdown").val('');
+                    $("#show").val('');
+                    $("#Quantity").val('');
+                    $("#Amount").val('');
+                }
+
+                //Send List of Movies to controller  
+                function PostMovies() {
+                    //Build List object that has to be sent to controller  
+                    var MoviesList = []; // list object  
+                    $('#table-information > tbody  > tr').each(function () { //loop in table list  
+
+                        var Items = {}; // create new Movie object and set its properties
+                        Items.Title = this.cells[0].innerHTML;
+                        Items.Quantity = this.cells[1].innerHTML;
+                        Items.Price = this.cells[2].innerHTML;
+                        Items.Amount = this.cells[3].innerHTML;
+                        MoviesList.push(Items); // add Movie object to list object
+                    });
+
+
+                }
+
+                //Add item to temp table
+                function AddTempItems() {
+
+                    //Create Movie Object
+                    var Items = {};
+                    const itemname = $("#itemsDropdown").val().split(" ")
+                  
+                    Items.Title = itemname[1];
+                    Items.Quantity = $('#Quantity').val();
+                    Items.Price = $('#show').val();
+                    Items.Amount = $('#Amount').val();
+                    var ExistTitle = false; // < -- Main indicator
+                 
+                    //Add movie if title is not duplicated otherwise show error
+                    if (ExistTitle === false) {
+                        ClearMsn();
+                        //Create Row element with provided data
+                        var Row = $('<tr>');
+                        $('<td>').html(Items.Title).addClass("TitleCol").appendTo(Row);
+                        $('<td>').html(Items.Quantity).appendTo(Row);
+                        $('<td>').html(Items.Price).appendTo(Row);
+                        $('<td>').html(Items.Amount).appendTo(Row);
+                        $('<td>').html("<div class='text-center'><button class='btn' onclick='Delete($(this))'><i class='material-icons md-18'>delete</i></button></div>").appendTo(Row);
+
+                        //Append row to table's body
+                        $('#table-body').append(Row);
+                        Calculation();
+                        CheckSubmitBtn(); // Enable submit button
+                    }
+                    else {
+                        ShowMsn("Title can not be duplicated.");
+                    }
+                }
+                function Calculation() {
+                    var MoviesList = []; // list object  
+                    $('#table-information > tbody  > tr').each(function () { //loop in table list  
+
+                        var Items = {}; // create new Movie object and set its properties
+                        Items.Title = this.cells[0].innerHTML;
+                        Items.Quantity = this.cells[1].innerHTML;
+                        Items.Price = this.cells[2].innerHTML;
+                        Items.Amount = this.cells[3].innerHTML;
+                        MoviesList.push(Items); // add Movie object to list object
+                    });
+                    var SubTotal = 0;
+                   
+                    for (var i in MoviesList) {
+                        SubTotal = parseInt(SubTotal)+parseInt(MoviesList[i].Amount);
+                    }
+                    var Discount = $("#Discount").val() != '' ? $("#Discount").val() : 0;
+                    var VAT = $("#VAT").val() != '' ? $("#VAT").val() : 0;
+                    var GrandTotal = (parseInt(SubTotal) - ((parseInt(Discount) / 100) * parseInt(SubTotal))) + ((parseInt(VAT) / 100) * parseInt(SubTotal));
+
+                    $("#SubTotal").val(SubTotal);
+                    $("#Discount").val(Discount);
+                    $("#VAT").val(VAT);
+                    $("#GrandTotal").val(GrandTotal);
+                }
+                debugger
+                //Delete selected row
+                function Delete(row) { // remove row from table
+                    row.closest('tr').remove();
+                   
+                    Calculation();
+                }
+
+                function ClearForm() {
+                    $('#form-container input[type="text"]').val('');
+                }
+
+                //Msn label for notifications
+                function ShowMsn(message) {
+                    $('#Msn').html(message);
+                }
+                //Clear text of Msn label
+                function ClearMsn() {
+                    $('#Msn').html("");
+                }
+            </script>
+        </div>
+    }
+
