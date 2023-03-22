@@ -17,6 +17,10 @@ namespace POS_System.Models
         [Required]
         public int Quantity { get; set; }
         [Required]
+        public int DiscountPercentage { get; set; }
+        [Required]
+        public int VatPercentage { get; set; }
+        [Required]
         public decimal Amount { get; set; }
         [Required]
         public DateTime BillDate { get; set; }

@@ -198,6 +198,8 @@
                             Items.ItemName = this.cells[0].innerHTML;
                             Items.Quantity = this.cells[1].innerHTML;
                             Items.Price = this.cells[2].innerHTML;
+                            Items.DiscountPercentage = $("#Discount").val();
+                            Items.VatPercentage = $("#VAT").val();
                             Items.Amount = this.cells[3].innerHTML;
                             Items.BillDate = $("#Date").val();
                             Items.BillTime =$("#Time").val();

@@ -67,17 +67,23 @@ namespace POS_System.Controllers
             {
                
                 var BillId = Guid.NewGuid();
+                
                 int i = 0;
                 _databaseConnections.connection();
                 SqlCommand cmd = new SqlCommand("AddNewOrderBill", _databaseConnections.con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 foreach (var bil in bills)
                 {
+                    double discount= (double)(((double)bil.DiscountPercentage / 100) * (double)bil.Amount);
+                    double vat = ((double)bil.VatPercentage / 100) * (double)bil.Amount;
+                    decimal Amount = ((decimal)bil.Amount + (decimal)(vat - discount));
                     cmd.Parameters.AddWithValue("@BillId", BillId);
                     cmd.Parameters.AddWithValue("@ItemName", bil.ItemName);
                     cmd.Parameters.AddWithValue("@Price", bil.Price);
-                    cmd.Parameters.AddWithValue("@Quantity", bil.Quantity);
-                    cmd.Parameters.AddWithValue("@Amount", bil.Amount);
+                    cmd.Parameters.AddWithValue("@Quantity", bil.Quantity);                  
+                    cmd.Parameters.AddWithValue("@DiscountPercentage", bil.DiscountPercentage);
+                    cmd.Parameters.AddWithValue("@VatPercentage", bil.VatPercentage);
+                    cmd.Parameters.AddWithValue("@Amount", Amount);
                     cmd.Parameters.AddWithValue("@BillDate", bil.BillDate);
                     cmd.Parameters.AddWithValue("@BillTime", bil.BillTime);
                     if (cmd.Connection.State != ConnectionState.Open)
