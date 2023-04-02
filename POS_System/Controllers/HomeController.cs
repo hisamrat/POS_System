@@ -111,7 +111,7 @@ namespace POS_System.Controllers
             }
             catch (Exception ex)
             {
-
+                //hi error
                 throw;
             }
 
